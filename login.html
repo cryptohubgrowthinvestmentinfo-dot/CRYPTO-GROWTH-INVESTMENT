@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Login | CRYPTO HUB GROWTH INVESTMENT</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  background:linear-gradient(135deg,#050b18,#071a33,#0b2a4a);
+  color:#fff;
+
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+}
+
+/* HEADER */
+.brand{
+  text-align:center;
+  padding:18px;
+  font-size:18px;
+  font-weight:700;
+  color:#00d9ff;
+  letter-spacing:1px;
+}
+
+/* NOTIFY */
+#notify{
+  position:fixed;
+  top:15px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#00d9ff;
+  color:#00131a;
+  padding:12px 18px;
+  border-radius:10px;
+  font-weight:700;
+  display:none;
+  z-index:9999;
+}
+
+/* CENTER */
+.wrapper{
+  flex:1;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:10px;
+}
+
+/* CARD (BIGGER + CLEAN) */
+.card{
+  width:95%;
+  max-width:540px;
+  padding:36px;
+  border-radius:18px;
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.1);
+  box-shadow:0 0 45px rgba(0,217,255,0.18);
+}
+
+/* TITLE */
+.title{
+  font-size:20px;
+  font-weight:700;
+  color:#9adfff;
+  margin-bottom:18px;
+}
+
+/* INPUT */
+.input-box{
+  position:relative;
+  margin-top:16px;
+}
+
+input{
+  width:100%;
+  padding:14px 52px 14px 14px;
+  border-radius:10px;
+  border:none;
+  outline:none;
+  background:rgba(255,255,255,0.05);
+  color:#fff;
+  border:1px solid rgba(255,255,255,0.1);
+}
+
+/* SHOW BUTTON INSIDE INPUT (RIGHT SIDE FIXED) */
+.right-toggle{
+  position:absolute;
+  right:12px;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:12px;
+  font-weight:700;
+  color:#00d9ff;
+  cursor:pointer;
+  padding:4px 8px;
+  border-radius:6px;
+  background:rgba(0,217,255,0.08);
+}
+
+/* ROW */
+.row{
+  display:flex;
+  align-items:center;
+  margin-top:14px;
+  font-size:13px;
+  color:#cfe8ff;
+}
+
+.row label{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+/* BUTTON */
+.btn{
+  width:100%;
+  padding:15px;
+  margin-top:18px;
+  border:none;
+  border-radius:12px;
+  font-weight:700;
+  cursor:pointer;
+  background:linear-gradient(135deg,#00d9ff,#00bcd4);
+  color:#00131a;
+}
+
+/* LINK */
+.link{
+  text-align:center;
+  margin-top:14px;
+  font-size:13px;
+  color:#9adfff;
+  cursor:pointer;
+}
+
+/* FOOTER */
+.footer{
+  text-align:center;
+  padding:14px;
+  font-size:12px;
+  color:#9adfff;
+  opacity:0.7;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="brand">CRYPTO HUB GROWTH INVESTMENT</div>
+
+<div id="notify"></div>
+
+<div class="wrapper">
+
+  <div class="card">
+
+    <div class="title">Login to Account</div>
+
+    <div class="input-box">
+      <input type="text" id="user" placeholder="Username / Email"/>
+    </div>
+
+    <div class="input-box">
+      <input type="password" id="password" placeholder="Password"/>
+      <span class="right-toggle" onclick="togglePass()">Show</span>
+    </div>
+
+    <div class="row">
+      <label>
+        <input type="checkbox" id="remember"/>
+        Remember me
+      </label>
+    </div>
+
+    <button class="btn" onclick="login()">Login</button>
+
+    <div class="link" onclick="goRegister()">
+      Don't have an account? Register
+    </div>
+
+  </div>
+
+</div>
+
+<div class="footer">
+  © 2026 CRYPTO HUB GROWTH INVESTMENT • Secure Fintech System
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-database-compat.js"></script>
+
+<script>
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDoE3JXF_ggmLS_MNO0xYE0uykuAlj0Mdk",
+  authDomain: "crypto-hub-growth-invest-9492c.firebaseapp.com",
+  databaseURL: "https://crypto-hub-growth-invest-9492c-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "crypto-hub-growth-invest-9492c",
+  storageBucket: "crypto-hub-growth-invest-9492c.firebasestorage.app",
+  messagingSenderId: "946872117732",
+  appId: "1:946872117732:web:c6ba0ca8c1510bf902bff1"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+/* NOTIFY */
+function notify(msg){
+  const n = document.getElementById("notify");
+  n.innerText = msg;
+  n.style.display = "block";
+  setTimeout(()=>n.style.display="none",2500);
+}
+
+/* PASSWORD TOGGLE */
+function togglePass(){
+  const p = document.getElementById("password");
+  const btn = document.querySelector(".right-toggle");
+
+  if(p.type === "password"){
+    p.type = "text";
+    btn.innerText = "Hide";
+  }else{
+    p.type = "password";
+    btn.innerText = "Show";
+  }
+}
+
+/* LOGIN */
+function login(){
+
+  const user = document.getElementById("user").value.trim();
+  const pass = document.getElementById("password").value;
+
+  if(!user || !pass){
+    notify("Fill all fields");
+    return;
+  }
+
+  db.ref("users").once("value", snap => {
+    const data = snap.val() || {};
+
+    let found = null;
+
+    Object.keys(data).forEach(id => {
+      const u = data[id];
+
+      if((u.email === user || u.username === user) && u.password === pass){
+        found = id;
+      }
+    });
+
+    if(found){
+      localStorage.setItem("userId", found);
+      notify("Login successful");
+
+      setTimeout(()=>{
+        window.location.href = "dashboard.html";
+      },1200);
+    }else{
+      notify("Invalid credentials");
+    }
+  });
+}
+
+/* REGISTER */
+function goRegister(){
+  window.location.href = "register.html";
+}
+
+</script>
+
+</body>
+</html>
