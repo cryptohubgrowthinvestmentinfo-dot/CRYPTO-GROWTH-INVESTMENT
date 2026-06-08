@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Withdraw | CRYPTO HUB GROWTH INVESTMENT</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  background:linear-gradient(135deg,#050b18,#071a33,#0b2a4a);
+  color:#fff;
+}
+
+/* HEADER */
+.brand{
+  text-align:center;
+  padding:18px;
+  font-size:18px;
+  font-weight:700;
+  color:#00d9ff;
+}
+
+/* NOTIFY */
+#notify{
+  position:fixed;
+  top:18px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#00d9ff;
+  color:#00131a;
+  padding:12px 18px;
+  border-radius:10px;
+  font-weight:700;
+  display:none;
+  z-index:9999;
+}
+
+/* CONTAINER */
+.container{
+  padding:16px;
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+}
+
+/* CARD */
+.card{
+  padding:22px;
+  border-radius:18px;
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.1);
+  box-shadow:0 0 22px rgba(0,217,255,0.10);
+}
+
+/* TITLE */
+.title{
+  font-size:15px;
+  color:#9adfff;
+  font-weight:700;
+  margin-bottom:12px;
+}
+
+p{
+  font-size:13px;
+  margin:6px 0;
+  color:#cfe8ff;
+  line-height:1.5;
+}
+
+/* NOTE BOX */
+.note{
+  background:rgba(0,217,255,0.08);
+  border:1px solid rgba(0,217,255,0.2);
+  padding:10px;
+  border-radius:10px;
+  margin-top:10px;
+}
+
+/* INPUTS */
+input, select{
+  width:100%;
+  padding:13px;
+  margin-top:12px;
+  border-radius:10px;
+  border:none;
+  outline:none;
+  background:rgba(255,255,255,0.05);
+  color:#fff;
+  border:1px solid rgba(255,255,255,0.1);
+}
+
+/* BUTTON */
+.btn{
+  width:100%;
+  padding:15px;
+  margin-top:14px;
+  border:none;
+  border-radius:12px;
+  font-weight:700;
+  cursor:pointer;
+  background:linear-gradient(135deg,#00d9ff,#00bcd4);
+  color:#00131a;
+}
+
+/* FOOTER */
+.footer{
+  text-align:center;
+  padding:25px;
+  font-size:12px;
+  color:#9adfff;
+  opacity:0.7;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="brand">CRYPTO HUB GROWTH INVESTMENT</div>
+<div id="notify"></div>
+
+<div class="container">
+
+  <!-- INSTRUCTIONS -->
+  <div class="card">
+    <div class="title">Withdrawal Guide</div>
+
+    <p>Follow instructions carefully for fast processing.</p>
+
+    <div class="note">
+      <p>✔ Minimum withdrawal: <b>500 KES</b></p>
+      <p>✔ Ensure correct details before submitting</p>
+      <p>✔ Processing time: 0–24 hours</p>
+      <p>✔ Wrong details may delay payment</p>
+    </div>
+
+    <p style="margin-top:10px;color:#ffcc00">
+      ⚠ Always double-check account details before withdrawal.
+    </p>
+  </div>
+
+  <!-- FORM -->
+  <div class="card">
+    <div class="title">Withdraw Funds</div>
+
+    <input type="number" id="amount" placeholder="Enter amount (KES)" min="500"/>
+
+    <select id="method" onchange="updateFields()">
+      <option value="">Select Withdrawal Method</option>
+      <option value="mpesa">M-Pesa</option>
+      <option value="airtel">Airtel Money</option>
+      <option value="bank">Bank</option>
+    </select>
+
+    <!-- phone -->
+    <input type="text" id="phone" placeholder="Phone Number" style="display:none;"/>
+
+    <!-- bank selection -->
+    <select id="bankName" style="display:none;">
+      <option value="">Select Bank</option>
+      <option value="Equity Bank">Equity Bank</option>
+      <option value="KCB Bank">KCB Bank</option>
+      <option value="I&M Bank">I&M Bank</option>
+      <option value="Cooperative Bank">Cooperative Bank</option>
+      <option value="Stanbic Bank">Stanbic Bank</option>
+      <option value="Family Bank">Family Bank</option>
+      <option value="National Bank">National Bank</option>
+    </select>
+
+    <input type="text" id="bankAccount" placeholder="Bank Account Number" style="display:none;"/>
+
+    <button class="btn" onclick="withdraw()">Withdraw</button>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  © 2026 CRYPTO HUB GROWTH INVESTMENT • Secure Fintech System
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-database-compat.js"></script>
+
+<script>
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDoE3JXF_ggmLS_MNO0xYE0uykuAlj0Mdk",
+  authDomain: "crypto-hub-growth-invest-9492c.firebaseapp.com",
+  databaseURL: "https://crypto-hub-growth-invest-9492c-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "crypto-hub-growth-invest-9492c",
+  storageBucket: "crypto-hub-growth-invest-9492c.firebasestorage.app",
+  messagingSenderId: "946872117732",
+  appId: "1:946872117732:web:c6ba0ca8c1510bf902bff1"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+const userId = localStorage.getItem("userId");
+
+if(!userId){
+  location.href = "login.html";
+}
+
+/* NOTIFY */
+function notify(msg){
+  const box = document.getElementById("notify");
+  box.innerText = msg;
+  box.style.display = "block";
+
+  clearTimeout(window.__ntf);
+  window.__ntf = setTimeout(()=>box.style.display="none",2500);
+}
+
+/* FIELD CONTROL */
+function updateFields(){
+  const method = document.getElementById("method").value;
+
+  document.getElementById("phone").style.display = "none";
+  document.getElementById("bankName").style.display = "none";
+  document.getElementById("bankAccount").style.display = "none";
+
+  if(method === "mpesa" || method === "airtel"){
+    document.getElementById("phone").style.display = "block";
+  }
+
+  if(method === "bank"){
+    document.getElementById("bankName").style.display = "block";
+    document.getElementById("bankAccount").style.display = "block";
+  }
+}
+
+/* WITHDRAW */
+function withdraw(){
+
+  const amount = Number(document.getElementById("amount").value);
+  const method = document.getElementById("method").value;
+  const phone = document.getElementById("phone").value;
+  const bankName = document.getElementById("bankName").value;
+  const bankAccount = document.getElementById("bankAccount").value;
+
+  if(amount < 500){
+    notify("Minimum withdrawal is 500 KES");
+    return;
+  }
+
+  if(!method){
+    notify("Select withdrawal method");
+    return;
+  }
+
+  if((method === "mpesa" || method === "airtel") && !phone){
+    notify("Enter phone number");
+    return;
+  }
+
+  if(method === "bank"){
+    if(!bankName || !bankAccount){
+      notify("Select bank and enter account number");
+      return;
+    }
+  }
+
+  const ref = db.ref("users/" + userId + "/transactions").push();
+
+  ref.set({
+    type: "withdraw",
+    amount,
+    method,
+    phone: phone || "",
+    bankName: bankName || "",
+    bankAccount: bankAccount || "",
+    time: Date.now(),
+    status: "pending"
+  });
+
+  notify("Withdrawal submitted successfully");
+
+  setTimeout(()=>{
+    location.href = "transaction.html";
+  },1500);
+}
+
+</script>
+
+</body>
+</html>
