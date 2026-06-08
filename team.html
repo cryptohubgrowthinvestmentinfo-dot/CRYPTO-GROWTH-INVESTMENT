@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Team | CRYPTO HUB GROWTH INVESTMENT</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:linear-gradient(135deg,#050b18,#071a33,#0b2a4a);
+color:#fff;
+padding-bottom:100px;
+}
+
+.brand{
+text-align:center;
+padding:18px;
+font-size:18px;
+font-weight:700;
+color:#00d9ff;
+}
+
+#notify{
+position:fixed;
+top:15px;
+left:50%;
+transform:translateX(-50%);
+background:#00d9ff;
+color:#00131a;
+padding:12px 18px;
+border-radius:10px;
+font-weight:700;
+display:none;
+z-index:9999;
+}
+
+.container{
+padding:15px;
+display:flex;
+flex-direction:column;
+gap:18px;
+}
+
+.card{
+padding:22px;
+border-radius:18px;
+background:rgba(255,255,255,.06);
+border:1px solid rgba(255,255,255,.1);
+box-shadow:0 0 25px rgba(0,217,255,.12);
+}
+
+.title{
+font-size:15px;
+font-weight:700;
+color:#9adfff;
+margin-bottom:12px;
+}
+
+.ref-box{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:12px;
+border-radius:10px;
+background:rgba(0,0,0,.25);
+margin-top:10px;
+}
+
+.ref-code{
+font-size:16px;
+font-weight:700;
+color:#00d9ff;
+}
+
+.copy-btn{
+border:none;
+padding:8px 12px;
+border-radius:8px;
+background:#00d9ff;
+color:#00131a;
+font-weight:700;
+cursor:pointer;
+}
+
+.info{
+font-size:13px;
+color:#cfe8ff;
+line-height:1.6;
+}
+
+.stats{
+display:flex;
+justify-content:space-between;
+margin-top:12px;
+}
+
+.stat{
+text-align:center;
+flex:1;
+}
+
+.stat h2{
+color:#00d9ff;
+font-size:22px;
+}
+
+.stat p{
+font-size:12px;
+color:#cfe8ff;
+}
+
+.referral-item{
+padding:14px;
+border-radius:12px;
+background:rgba(255,255,255,.04);
+margin-top:10px;
+border:1px solid rgba(255,255,255,.08);
+}
+
+.ref-name{
+font-weight:600;
+}
+
+.status{
+margin-top:5px;
+font-size:13px;
+}
+
+.pending{
+color:#ffcc00;
+}
+
+.completed{
+color:#00ff99;
+}
+
+/* NAV */
+
+.nav{
+position:fixed;
+bottom:0;
+left:0;
+right:0;
+height:85px;
+background:#061528;
+display:flex;
+justify-content:space-around;
+align-items:center;
+border-top:1px solid rgba(255,255,255,.1);
+}
+
+.nav a{
+display:flex;
+flex-direction:column;
+align-items:center;
+text-decoration:none;
+color:#cfe8ff;
+font-size:15px;
+font-weight:600;
+}
+
+.nav a.active{
+color:#00d9ff;
+}
+
+.nav .icon{
+font-size:28px;
+}
+
+</style>
+</head>
+<body>
+
+<div class="brand">CRYPTO HUB GROWTH INVESTMENT</div>
+
+<div id="notify"></div>
+
+<div class="container">
+
+<div class="card">
+
+<div class="title">Your Referral Code</div>
+
+<div class="ref-box">
+<span class="ref-code" id="refCode">Loading...</span>
+<button class="copy-btn" onclick="copyCode()">Copy</button>
+</div>
+
+</div>
+
+<div class="card">
+
+<div class="title">Referral Rewards</div>
+
+<div class="info">
+Invite new members using your referral code.<br><br>
+
+✔ Earn <b>KES 300</b> for every referral.<br>
+
+✔ Reward is credited only after the referral makes their first deposit.<br>
+
+✔ Multiple referrals allowed.<br>
+
+✔ Deposits are verified before rewards are approved.
+</div>
+
+</div>
+
+<div class="card">
+
+<div class="title">Team Statistics</div>
+
+<div class="stats">
+
+<div class="stat">
+<h2 id="totalReferrals">0</h2>
+<p>Invited</p>
+</div>
+
+<div class="stat">
+<h2 id="activeReferrals">0</h2>
+<p>Deposited</p>
+</div>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<div class="title">My Referrals</div>
+
+<div id="referralList">
+<div class="info">No referrals yet.</div>
+</div>
+
+</div>
+
+</div>
+
+<div class="nav">
+
+<a href="dashboard.html">
+<span class="icon">🏠</span>
+<span>Home</span>
+</a>
+
+<a href="task.html">
+<span class="icon">📌</span>
+<span>Task</span>
+</a>
+
+<a href="team.html" class="active">
+<span class="icon">👥</span>
+<span>Team</span>
+</a>
+
+<a href="plans.html">
+<span class="icon">📊</span>
+<span>Plans</span>
+</a>
+
+<a href="profile.html">
+<span class="icon">👤</span>
+<span>Profile</span>
+</a>
+
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-database-compat.js"></script>
+
+<script>
+
+const firebaseConfig = {
+apiKey: "AIzaSyDoE3JXF_ggmLS_MNO0xYE0uykuAlj0Mdk",
+authDomain: "crypto-hub-growth-invest-9492c.firebaseapp.com",
+databaseURL: "https://crypto-hub-growth-invest-9492c-default-rtdb.europe-west1.firebasedatabase.app",
+projectId: "crypto-hub-growth-invest-9492c",
+storageBucket: "crypto-hub-growth-invest-9492c.firebasestorage.app",
+messagingSenderId: "946872117732",
+appId: "1:946872117732:web:c6ba0ca8c1510bf902bff1"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+const userId = localStorage.getItem("userId");
+
+if(!userId){
+location.href="login.html";
+}
+
+function notify(msg){
+const n=document.getElementById("notify");
+n.innerText=msg;
+n.style.display="block";
+setTimeout(()=>n.style.display="none",2500);
+}
+
+function copyCode(){
+navigator.clipboard.writeText(
+document.getElementById("refCode").innerText
+);
+notify("Referral code copied");
+}
+
+db.ref("users/"+userId).on("value",snap=>{
+
+const user=snap.val() || {};
+
+const referralCode =
+user.referralCode ||
+user.username ||
+("REF"+userId.slice(-6));
+
+document.getElementById("refCode").innerText =
+referralCode;
+
+});
+
+db.ref("users").on("value",snap=>{
+
+const users=snap.val() || {};
+
+let invited=0;
+let deposited=0;
+
+let html="";
+
+const myCode=
+document.getElementById("refCode").innerText;
+
+Object.keys(users).forEach(id=>{
+
+const u=users[id];
+
+if(u.referredBy===myCode){
+
+invited++;
+
+const active = u.firstDepositCompleted === true;
+
+if(active) deposited++;
+
+html += `
+<div class="referral-item">
+
+<div class="ref-name">
+${u.username || "User"}
+</div>
+
+<div class="status ${active ? 'completed':'pending'}">
+${active ? 'Deposited ✓' : 'Waiting for first deposit'}
+</div>
+
+</div>
+`;
+
+}
+
+});
+
+document.getElementById("totalReferrals").innerText =
+invited;
+
+document.getElementById("activeReferrals").innerText =
+deposited;
+
+document.getElementById("referralList").innerHTML =
+html || '<div class="info">No referrals yet.</div>';
+
+});
+
+</script>
+
+</body>
+</html>
