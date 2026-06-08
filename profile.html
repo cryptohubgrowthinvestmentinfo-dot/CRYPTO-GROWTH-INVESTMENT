@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Profile | CRYPTO HUB GROWTH INVESTMENT</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  background:radial-gradient(circle at top,#0b1f3a,#050b18 60%,#03060d);
+  color:#fff;
+}
+
+/* HEADER */
+.brand{
+  text-align:center;
+  padding:20px;
+  font-size:18px;
+  font-weight:700;
+  color:#00e5ff;
+  letter-spacing:1px;
+  text-shadow:0 0 12px rgba(0,229,255,0.4);
+}
+
+/* ===== ENHANCED FINTECH CARD ===== */
+.card{
+  margin:15px;
+  padding:18px;
+  border-radius:18px;
+
+  background:linear-gradient(135deg,
+    rgba(0,229,255,0.10),
+    rgba(255,255,255,0.03),
+    rgba(0,140,255,0.08));
+
+  border:1px solid rgba(0,229,255,0.18);
+
+  box-shadow:
+    0 0 30px rgba(0,229,255,0.10),
+    0 10px 30px rgba(0,0,0,0.4),
+    inset 0 0 14px rgba(255,255,255,0.04);
+
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  position:relative;
+  overflow:hidden;
+}
+
+/* subtle animated glow line */
+.card::before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:-40%;
+  width:60%;
+  height:2px;
+  background:linear-gradient(90deg,transparent,#00e5ff,transparent);
+  animation:shine 4s infinite linear;
+}
+
+@keyframes shine{
+  0%{left:-60%;}
+  100%{left:120%;}
+}
+
+/* TOP ROW */
+.top-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.email{
+  font-size:14px;
+  color:#cfe8ff;
+  opacity:0.95;
+  letter-spacing:0.3px;
+}
+
+/* upgraded profit badge */
+.profit-badge{
+  font-size:12px;
+  padding:6px 12px;
+  border-radius:20px;
+  background:rgba(0,229,255,0.12);
+  color:#00e5ff;
+  border:1px solid rgba(0,229,255,0.35);
+  box-shadow:0 0 10px rgba(0,229,255,0.2);
+}
+
+/* VIP */
+.vip{
+  margin-top:12px;
+  font-size:13px;
+  color:#00e5ff;
+  font-weight:600;
+
+  display:inline-block;
+  padding:6px 10px;
+  border-radius:10px;
+  background:rgba(0,229,255,0.08);
+  border:1px solid rgba(0,229,255,0.15);
+}
+
+/* ===== BALANCE CARD ===== */
+.balance-row{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.balance-box{
+  flex:1;
+  padding:12px;
+  border-radius:14px;
+
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.08);
+
+  box-shadow:
+    inset 0 0 12px rgba(0,0,0,0.25);
+}
+
+.balance-box h4{
+  font-size:11px;
+  color:#9adfff;
+  letter-spacing:0.4px;
+}
+
+.balance-box h2{
+  font-size:18px;
+  margin-top:6px;
+  color:#ffffff;
+}
+
+/* ===== BUTTON SECTION (UNCHANGED STRUCTURE) ===== */
+.actions{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  margin:15px;
+}
+
+.btn{
+  padding:14px;
+  border:none;
+  border-radius:14px;
+  font-weight:700;
+  text-align:left;
+  padding-left:18px;
+  cursor:pointer;
+  transition:0.2s ease;
+  position:relative;
+  overflow:hidden;
+}
+
+/* glow sweep */
+.btn::before{
+  content:"";
+  position:absolute;
+  top:-60%;
+  left:-60%;
+  width:200%;
+  height:200%;
+  background:radial-gradient(circle,rgba(255,255,255,0.18),transparent 60%);
+  transform:rotate(25deg);
+}
+
+.btn:hover{
+  transform:translateY(-2px);
+}
+
+/* COLORS */
+.deposit{
+  background:linear-gradient(135deg,#00e5ff,#00bcd4);
+  color:#00131a;
+}
+
+.withdraw{
+  background:linear-gradient(135deg,#ffffff,#d9d9d9);
+  color:#000;
+}
+
+.history{
+  background:linear-gradient(135deg,#1c2a3a,#101826);
+  color:#fff;
+  border:1px solid rgba(255,255,255,0.1);
+}
+
+.logout{
+  background:linear-gradient(135deg,#ff4d4d,#b30000);
+  color:#fff;
+}
+
+/* NAV (UNCHANGED) */
+.nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  height:85px;
+  background:#061528;
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  border-top:1px solid rgba(255,255,255,0.1);
+}
+
+.nav a{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-decoration:none;
+  color:#cfe8ff;
+  font-size:15px;
+  font-weight:600;
+  min-width:65px;
+}
+
+.nav a .icon{
+  font-size:28px;
+}
+
+.nav a.active{
+  color:#00e5ff;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="brand">CRYPTO HUB GROWTH INVESTMENT</div>
+
+<!-- PROFILE CARD -->
+<div class="card">
+
+  <div class="top-row">
+    <div class="email" id="email">📧 Loading...</div>
+    <div class="profit-badge">💰 Profit Active</div>
+  </div>
+
+  <div class="vip" id="vipLevel">VIP Level: 0</div>
+
+</div>
+
+<!-- BALANCE CARD -->
+<div class="card">
+
+  <div class="balance-row">
+
+    <div class="balance-box">
+      <h4>Main Balance</h4>
+      <h2 id="balance">KES 0.00</h2>
+    </div>
+
+    <div class="balance-box">
+      <h4>Total Earnings</h4>
+      <h2 id="earnings">KES 0.00</h2>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ACTIONS -->
+<div class="actions">
+
+<button class="btn deposit" onclick="location.href='deposit.html'">Deposit</button>
+<button class="btn withdraw" onclick="location.href='withdraw.html'">Withdraw</button>
+<button class="btn history" onclick="location.href='history.html'">Transaction History</button>
+<button class="btn logout" onclick="logout()">Logout</button>
+
+</div>
+
+<div style="height:90px"></div>
+
+<!-- NAV -->
+<div class="nav">
+
+  <a href="dashboard.html"><span class="icon">🏠</span><span>Home</span></a>
+  <a href="task.html"><span class="icon">📌</span><span>Task</span></a>
+  <a href="team.html"><span class="icon">👥</span><span>Team</span></a>
+  <a href="plans.html"><span class="icon">📊</span><span>Plans</span></a>
+  <a href="profile.html" class="active"><span class="icon">👤</span><span>Profile</span></a>
+
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-database-compat.js"></script>
+
+<script>
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDoE3JXF_ggmLS_MNO0xYE0uykuAlj0Mdk",
+  authDomain: "crypto-hub-growth-invest-9492c.firebaseapp.com",
+  databaseURL: "https://crypto-hub-growth-invest-9492c-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "crypto-hub-growth-invest-9492c",
+  storageBucket: "crypto-hub-growth-invest-9492c.firebasestorage.app",
+  messagingSenderId: "946872117732",
+  appId: "1:946872117732:web:c6ba0ca8c1510bf902bff1"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+const userId = localStorage.getItem("userId");
+
+if(!userId){
+  window.location.href = "login.html";
+}
+
+const emailEl = document.getElementById("email");
+const vipEl = document.getElementById("vipLevel");
+const balanceEl = document.getElementById("balance");
+const earningsEl = document.getElementById("earnings");
+
+db.ref("users/" + userId).on("value", (snap) => {
+
+  const data = snap.val() || {};
+
+  emailEl.innerText = "📧 " + (data.email || "Not set");
+  vipEl.innerText = "VIP Level: " + (data.vipLevel || 0);
+
+  balanceEl.innerText = "KES " + Number(data.mainBalance || 0).toFixed(2);
+  earningsEl.innerText = "KES " + Number(data.totalEarnings || 0).toFixed(2);
+
+});
+
+function logout(){
+  localStorage.removeItem("userId");
+  window.location.href = "login.html";
+}
+
+</script>
+
+</body>
+</html>
