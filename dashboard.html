@@ -1,0 +1,494 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+<meta charset="UTF-8"/>  
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>  
+<title>Dashboard | CRYPTO HUB GROWTH INVESTMENT</title>  
+  
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">  
+  
+<style>  
+  
+*{  
+  margin:0;  
+  padding:0;  
+  box-sizing:border-box;  
+  font-family:'Poppins',sans-serif;  
+}  
+  
+body{  
+  background:linear-gradient(135deg,#050b18,#071a33,#0b2a4a);  
+  color:#fff;  
+}  
+  
+/* TOP BRAND */  
+.brand{  
+  text-align:center;  
+  padding:18px;  
+  font-size:18px;  
+  font-weight:700;  
+  color:#00d9ff;  
+  letter-spacing:1px;  
+}  
+  
+/* ANNOUNCEMENT TICKER */  
+.ticker{  
+  background:rgba(0,217,255,0.08);  
+  border-top:1px solid rgba(0,217,255,0.2);  
+  border-bottom:1px solid rgba(0,217,255,0.2);  
+  padding:10px;  
+  overflow:hidden;  
+  cursor:pointer;  
+}  
+  
+.ticker span{  
+  display:inline-block;  
+  white-space:nowrap;  
+  animation:move 15s linear infinite;  
+  color:#bfe9ff;  
+  font-size:13px;  
+}  
+  
+@keyframes move{  
+  0%{transform:translateX(100%);}  
+  100%{transform:translateX(-100%);}  
+}  
+  
+/* CARDS */  
+.grid{  
+  display:grid;  
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));  
+  gap:15px;  
+  padding:20px;  
+}  
+  
+.card{  
+  background:rgba(255,255,255,0.06);  
+  border:1px solid rgba(255,255,255,0.08);  
+  border-radius:16px;  
+  padding:16px;  
+}  
+  
+.card h3{color:#9adfff;font-size:13px;}  
+.card h2{margin-top:10px;font-size:20px;}  
+  
+/* ACTIONS */  
+.actions{  
+  display:flex;  
+  gap:12px;  
+  padding:0 20px;  
+}  
+  
+.btn{  
+  flex:1;  
+  padding:14px;  
+  border:none;  
+  border-radius:14px;  
+  font-weight:700;  
+  font-size:14px;  
+}  
+  
+.deposit{background:#00d9ff;color:#00131a;}  
+.withdraw{background:#ffffff;color:#000;}  
+.company{background:#1c2a3a;color:#fff;}  
+  
+/* IMAGES */  
+.banner{  
+  display:grid;  
+  grid-template-columns:1fr 1fr;  
+  gap:10px;  
+  padding:20px;  
+}  
+  
+.banner img{  
+  width:100%;  
+  height:120px;  
+  object-fit:cover;  
+  border-radius:12px;  
+}  
+  
+/* PLANS (VERTICAL) */  
+.plans{  
+  padding:20px;  
+}  
+  
+.plans h2{  
+  color:#00d9ff;  
+  margin-bottom:10px;  
+}  
+  
+.plan{  
+  display:flex;  
+  justify-content:space-between;  
+  align-items:center;  
+  padding:14px;  
+  margin-bottom:10px;  
+  border-radius:12px;  
+  background:rgba(255,255,255,0.05);  
+  border:1px solid rgba(255,255,255,0.08);  
+}  
+  
+.plan.locked{  
+  opacity:0.45;  
+}  
+  
+.plan-left{  
+  display:flex;  
+  flex-direction:column;  
+}  
+  
+.plan-left h4{  
+  color:#9adfff;  
+  font-size:14px;  
+}  
+  
+.plan-left small{  
+  color:#cfe8ff;  
+  font-size:12px;  
+}  
+  
+.lock{  
+  font-size:12px;  
+  color:#ffcc00;  
+}  
+  
+/* BOTTOM NAV - PROFESSIONAL SIZE */  
+  
+.nav{  
+  position:fixed;  
+  bottom:0;  
+  left:0;  
+  right:0;  
+  height:85px;  
+  background:#061528;  
+  display:flex;  
+  justify-content:space-around;  
+  align-items:center;  
+  border-top:1px solid rgba(255,255,255,0.1);  
+  z-index:999;  
+}  
+  
+.nav a{  
+  display:flex;  
+  flex-direction:column;  
+  align-items:center;  
+  justify-content:center;  
+  gap:6px;  
+  text-decoration:none;  
+  color:#cfe8ff;  
+  font-size:15px;  
+  font-weight:600;  
+  min-width:65px;  
+  height:70px;  
+  border-radius:14px;  
+  transition:0.3s;  
+}  
+  
+.nav a .icon{  
+  font-size:28px;  
+}  
+  
+.nav a.active{  
+  color:#00d9ff;  
+  background:rgba(0,217,255,0.12);  
+}  
+  
+.nav a:hover{  
+  background:rgba(255,255,255,0.06);  
+}  
+  
+/* MODAL */  
+.modal{  
+  position:fixed;  
+  top:0;  
+  left:0;  
+  width:100%;  
+  height:100%;  
+  background:rgba(0,0,0,0.8);  
+  display:none;  
+  justify-content:center;  
+  align-items:center;  
+  padding:20px;  
+}  
+  
+.modal-content{  
+  background:#0b1f3a;  
+  padding:20px;  
+  border-radius:14px;  
+  max-width:400px;  
+  color:#cfe8ff;  
+}  
+  
+.close{  
+  margin-top:15px;  
+  padding:10px;  
+  width:100%;  
+  border:none;  
+  background:#00d9ff;  
+  color:#000;  
+  font-weight:700;  
+  border-radius:10px;  
+}  
+  
+</style>  
+</head>  
+  
+<body>  
+  
+<!-- BRAND -->  
+<div class="brand">  
+CRYPTO HUB GROWTH INVESTMENT  
+</div>  
+  
+<!-- TICKER (CLICKABLE) -->  
+<div class="ticker" onclick="openModal()">  
+  <span>  
+📢 Minimum Deposit: KES 1,000 • Minimum Withdrawal: KES 500 • VIP Levels 1–10 Available • Higher plans = higher ROI • Secure automated profit system •  
+  </span>  
+</div>  
+  
+<!-- CARDS -->  
+<div class="grid">  
+  <div class="card">  
+    <h3>Main Balance</h3>  
+    <h2>KES 0.00</h2>  
+  </div>  
+  
+  <div class="card">  
+    <h3>Total Deposit</h3>  
+    <h2>KES 0.00</h2>  
+  </div>  
+  
+  <div class="card">  
+    <h3>Total Earnings</h3>  
+    <h2>KES 0.00</h2>  
+  </div>  
+</div>  
+  
+<!-- ACTIONS -->  
+<div class="actions">  
+  
+<button class="btn deposit"  
+onclick="window.location.href='deposit.html'">  
+Deposit  
+</button>  
+  
+<button class="btn withdraw"  
+onclick="window.location.href='withdraw.html'">  
+Withdraw  
+</button>  
+  
+<button class="btn company"  
+onclick="window.location.href='company.html'">  
+Company  
+</button>  
+  
+</div>  
+  
+<!-- IMAGES -->  
+<div class="banner">  
+  <img src="https://images.unsplash.com/photo-1640340434855-6084b1f4901c"/>  
+  <img src="https://images.unsplash.com/photo-1639322537228-f710d846310a"/>  
+</div>  
+  
+<!-- PLANS (VERTICAL) -->  
+<div class="plans">  
+  <h2>VIP Investment Levels</h2>  
+  
+  <div id="planList"></div>  
+</div>  
+  
+<div style="height:80px"></div>  
+  
+<!-- BOTTOM NAV -->  
+<div class="nav">  
+  
+  <a href="home.html" class="active">  
+    <span class="icon">🏠</span>  
+    <span>Home</span>  
+  </a>  
+  
+  <a href="task.html">  
+    <span class="icon">📌</span>  
+    <span>Task</span>  
+  </a>  
+  
+  <a href="team.html">  
+    <span class="icon">👥</span>  
+    <span>Team</span>  
+  </a>  
+  
+  <a href="plans.html">  
+    <span class="icon">📊</span>  
+    <span>Plans</span>  
+  </a>  
+  
+  <a href="profile.html">  
+    <span class="icon">👤</span>  
+    <span>Profile</span>  
+  </a>  
+  
+<!-- ANNOUNCEMENT MODAL -->  
+<div class="modal" id="modal">  
+  
+  <div class="modal-content">  
+  
+    <h3>📢 Platform Announcement</h3>  
+  
+    <p>  
+      Welcome to CRYPTO HUB GROWTH INVESTMENT.  
+      <br><br>  
+  
+      • Minimum Deposit: KES 1,000<br>  
+      • Minimum Withdrawal: KES 500<br><br>  
+  
+      • VIP Investment Levels 1–10 are available.<br>  
+      • Higher levels unlock higher ROI and earnings.<br><br>  
+  
+      • All investments are monitored 24/7 for performance and transparency.  
+    </p>  
+  
+    <button class="close" onclick="closeModal()">  
+      Close  
+    </button>  
+  
+  </div>  
+  
+</div>  
+<!-- VIP LOCKED MODAL -->  
+<div class="modal" id="vipModal">  
+  
+  <div class="modal-content">  
+  
+    <h3>🔒 VIP Locked</h3>  
+  
+    <p id="vipText">  
+      This VIP level is currently locked.  
+    </p>  
+  
+    <button  
+      class="close"  
+      onclick="document.getElementById('vipModal').style.display='none'">  
+      Close  
+    </button>  
+  
+  </div>  
+  
+</div>  
+  
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>  
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-database-compat.js"></script>  
+  
+<script>  
+// =====================  
+// FIREBASE CONFIG  
+// =====================  
+const firebaseConfig = {  
+  apiKey: "AIzaSyDoE3JXF_ggmLS_MNO0xYE0uykuAlj0Mdk",  
+  authDomain: "crypto-hub-growth-invest-9492c.firebaseapp.com",  
+  databaseURL: "https://crypto-hub-growth-invest-9492c-default-rtdb.europe-west1.firebasedatabase.app",  
+  projectId: "crypto-hub-growth-invest-9492c",  
+  storageBucket: "crypto-hub-growth-invest-9492c.firebasestorage.app",  
+  messagingSenderId: "946872117732",  
+  appId: "1:946872117732:web:c6ba0ca8c1510bf902bff1",  
+  measurementId: "G-CLET27VD7J"  
+};  
+  
+// Init Firebase  
+firebase.initializeApp(firebaseConfig);  
+const db = firebase.database();  
+  
+// =====================  
+// MODALS (ANNOUNCEMENT)  
+// =====================  
+function openModal() {  
+  document.getElementById("modal").style.display = "flex";  
+}  
+  
+function closeModal() {  
+  document.getElementById("modal").style.display = "none";  
+}  
+  
+// Close when clicking outside modal  
+window.addEventListener("click", function (event) {  
+  const modal = document.getElementById("modal");  
+  const vipModal = document.getElementById("vipModal");  
+  
+  if (event.target === modal) {  
+    modal.style.display = "none";  
+  }  
+  
+  if (event.target === vipModal) {  
+    vipModal.style.display = "none";  
+  }  
+});  
+  
+// =====================  
+// VIP SYSTEM (FIREBASE SYNC)  
+// =====================  
+  
+const planList = document.getElementById("planList");  
+  
+// Get device/user ID (simple local key)  
+const userId = localStorage.getItem("userId") || generateUserId();  
+localStorage.setItem("userId", userId);  
+  
+function generateUserId() {  
+  return "user_" + Math.random().toString(36).substr(2, 9);  
+}  
+  
+// Unlock VIP  
+function unlockVip(level) {  
+  const ref = db.ref("users/" + userId + "/vipLevel");  
+  
+  ref.set(level).then(() => {  
+    alert("VIP Level " + level + " unlocked successfully!");  
+    renderVipLevels();  
+  });  
+}  
+  
+// Render VIP Levels  
+function renderVipLevels(unlockedLevel = 0) {  
+  planList.innerHTML = "";  
+  
+  for (let i = 1; i <= 10; i++) {  
+    const unlocked = i <= unlockedLevel;  
+  
+    const div = document.createElement("div");  
+    div.className = unlocked ? "plan" : "plan locked";  
+    div.style.cursor = "pointer";  
+  
+    div.innerHTML = `  
+      <div class="plan-left">  
+        <h4>VIP Level ${i}</h4>  
+        <small>${unlocked ? "VIP Activated" : "Unlock required"}</small>  
+      </div>  
+      <div class="lock">  
+        ${unlocked ? "✅ Active" : "🔒 Locked"}  
+      </div>  
+    `;  
+  
+    div.onclick = function () {  
+      if (unlocked) {  
+        window.location.href = "vip" + i + ".html";  
+      } else {  
+        document.getElementById("vipText").innerHTML =  
+          "VIP Level " + i + " is locked.<br>Unlock it first.";  
+  
+        document.getElementById("vipModal").style.display = "flex";  
+      }  
+    };  
+  
+    planList.appendChild(div);  
+  }  
+}  
+  
+// LIVE SYNC FROM FIREBASE  
+db.ref("users/" + userId + "/vipLevel").on("value", (snapshot) => {  
+  const level = snapshot.val() || 0;  
+  renderVipLevels(level);  
+});  
+</script>  
+  
+</body>  
+</html>
