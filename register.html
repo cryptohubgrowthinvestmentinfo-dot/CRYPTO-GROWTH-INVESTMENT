@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Register | CRYPTO HUB GROWTH INVESTMENT</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  background:linear-gradient(135deg,#050b18,#071a33,#0b2a4a);
+  color:#fff;
+}
+
+/* HEADER */
+.brand{
+  text-align:center;
+  padding:18px;
+  font-size:18px;
+  font-weight:700;
+  color:#00d9ff;
+  letter-spacing:1px;
+}
+
+/* NOTIFY */
+#notify{
+  position:fixed;
+  top:15px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#00d9ff;
+  color:#00131a;
+  padding:12px 18px;
+  border-radius:10px;
+  font-weight:700;
+  display:none;
+  z-index:9999;
+}
+
+/* CARD (LARGER + MORE PREMIUM) */
+.card{
+  margin:12px;
+  padding:26px;   /* increased */
+  border-radius:20px;
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.1);
+  box-shadow:0 0 24px rgba(0,217,255,0.12);
+}
+
+/* TITLE */
+.title{
+  font-size:16px;
+  font-weight:700;
+  color:#9adfff;
+  margin-bottom:14px;
+}
+
+/* INPUT WRAPPER */
+.input-box{
+  position:relative;
+  margin-top:14px;
+}
+
+/* INPUT */
+input{
+  width:100%;
+  padding:13px 40px 13px 12px;
+  border-radius:10px;
+  border:none;
+  outline:none;
+  background:rgba(255,255,255,0.05);
+  color:#fff;
+  border:1px solid rgba(255,255,255,0.1);
+}
+
+/* TOGGLE */
+.toggle{
+  position:absolute;
+  right:10px;
+  top:50%;
+  transform:translateY(-50%);
+  cursor:pointer;
+  font-size:13px;
+  color:#00d9ff;
+  font-weight:700;
+}
+
+/* REFERRAL SPACING FIX */
+.referral-box{
+  margin-top:16px;
+}
+
+/* TERMS (CLEAN ALIGNMENT) */
+.terms{
+  margin-top:14px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:13px;
+  color:#cfe8ff;
+}
+
+.terms input{
+  width:16px;
+  height:16px;
+  accent-color:#00d9ff;
+}
+
+.terms a{
+  color:#00d9ff;
+  text-decoration:none;
+  font-weight:700;
+}
+
+/* BUTTON */
+.btn{
+  width:100%;
+  padding:15px;
+  margin-top:18px;
+  border:none;
+  border-radius:12px;
+  font-weight:700;
+  cursor:pointer;
+  background:linear-gradient(135deg,#00d9ff,#00bcd4);
+  color:#00131a;
+}
+
+/* LOGIN LINK */
+.link{
+  text-align:center;
+  margin-top:14px;
+  font-size:13px;
+  color:#9adfff;
+  cursor:pointer;
+}
+
+/* FOOTER */
+.footer{
+  text-align:center;
+  padding:22px;
+  font-size:12px;
+  color:#9adfff;
+  opacity:0.7;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="brand">CRYPTO HUB GROWTH INVESTMENT</div>
+
+<div id="notify"></div>
+
+<div class="card">
+
+  <div class="title">Create Account</div>
+
+  <div class="input-box">
+    <input type="text" id="username" placeholder="Username"/>
+  </div>
+
+  <div class="input-box">
+    <input type="email" id="email" placeholder="Email"/>
+  </div>
+
+  <div class="input-box">
+    <input type="password" id="password" placeholder="Password"/>
+    <span class="toggle" onclick="toggle('password')">Show</span>
+  </div>
+
+  <div class="input-box">
+    <input type="password" id="confirmPassword" placeholder="Confirm Password"/>
+    <span class="toggle" onclick="toggle('confirmPassword')">Show</span>
+  </div>
+
+  <!-- REFERRAL (FIXED SPACING) -->
+  <div class="input-box referral-box">
+    <input type="text" id="referral" placeholder="Referral Code (optional)"/>
+  </div>
+
+  <!-- TERMS -->
+  <div class="terms">
+    <input type="checkbox" id="terms">
+    <span>
+      I agree to 
+      <a href="terms.html">Terms & Conditions</a>
+    </span>
+  </div>
+
+  <button class="btn" onclick="register()">Create Account</button>
+
+  <div class="link" onclick="login()">
+    Have an account? Login
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  © 2026 CRYPTO HUB GROWTH INVESTMENT • All Rights Reserved
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-database-compat.js"></script>
+
+<script>
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDoE3JXF_ggmLS_MNO0xYE0uykuAlj0Mdk",
+  authDomain: "crypto-hub-growth-invest-9492c.firebaseapp.com",
+  databaseURL: "https://crypto-hub-growth-invest-9492c-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "crypto-hub-growth-invest-9492c",
+  storageBucket: "crypto-hub-growth-invest-9492c.firebasestorage.app",
+  messagingSenderId: "946872117732",
+  appId: "1:946872117732:web:c6ba0ca8c1510bf902bff1"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+/* NOTIFY */
+function notify(msg){
+  const box = document.getElementById("notify");
+  box.innerText = msg;
+  box.style.display = "block";
+  clearTimeout(window.ntf);
+  window.ntf = setTimeout(()=>box.style.display="none",2500);
+}
+
+/* TOGGLE PASSWORD */
+function toggle(id){
+  const input = document.getElementById(id);
+  input.type = input.type === "password" ? "text" : "password";
+}
+
+/* REGISTER */
+function register(){
+
+  const username = document.getElementById("username").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+  const confirmPassword = document.getElementById("confirmPassword").value;
+  const referral = document.getElementById("referral").value.trim();
+  const terms = document.getElementById("terms").checked;
+
+  if(!username || !email || !password || !confirmPassword){
+    notify("Fill all required fields");
+    return;
+  }
+
+  if(password !== confirmPassword){
+    notify("Passwords do not match");
+    return;
+  }
+
+  if(!terms){
+    notify("Accept Terms & Conditions");
+    return;
+  }
+
+  const userId = "user_" + Date.now();
+
+  db.ref("users/" + userId).set({
+    username,
+    email,
+    password,
+    referral,
+    mainBalance: 0,
+    totalEarnings: 0,
+    createdAt: Date.now()
+  });
+
+  localStorage.setItem("userId", userId);
+
+  notify("Account created successfully");
+
+  setTimeout(()=>{
+    window.location.href = "dashboard.html";
+  },1500);
+}
+
+/* LOGIN */
+function login(){
+  window.location.href = "login.html";
+}
+
+</script>
+
+</body>
+</html>
