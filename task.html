@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Task | CRYPTO HUB GROWTH INVESTMENT</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  background:linear-gradient(135deg,#050b18,#071a33,#0b2a4a);
+  color:#fff;
+}
+
+/* HEADER */
+.brand{
+  text-align:center;
+  padding:18px;
+  font-size:18px;
+  font-weight:700;
+  color:#00d9ff;
+  letter-spacing:1px;
+}
+
+/* LAYOUT */
+.container{
+  padding:15px;
+  display:grid;
+  gap:12px;
+}
+
+/* GLASS CARD */
+.card{
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:16px;
+  padding:15px;
+  box-shadow:0 0 18px rgba(0,217,255,0.08);
+  backdrop-filter: blur(10px);
+}
+
+/* SMALL STATS GRID (TOP CARDS INSIDE FIRST CARD) */
+.stats-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:10px;
+}
+
+.stat{
+  padding:12px;
+  border-radius:12px;
+  background:rgba(0,217,255,0.06);
+  border:1px solid rgba(0,217,255,0.15);
+}
+
+.stat .label{
+  font-size:12px;
+  color:#9adfff;
+}
+
+.stat .value{
+  font-size:16px;
+  font-weight:700;
+  color:#00d9ff;
+  margin-top:5px;
+}
+
+/* SECOND CARD STATS */
+.row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:10px 0;
+  border-bottom:1px solid rgba(255,255,255,0.05);
+}
+
+.label{
+  font-size:13px;
+  color:#9adfff;
+}
+
+.value{
+  font-size:14px;
+  font-weight:700;
+  color:#00d9ff;
+}
+
+/* VIP TABLE */
+.table{
+  width:100%;
+  margin-top:10px;
+}
+
+.table-header, .table-row{
+  display:flex;
+  justify-content:space-between;
+  padding:10px 5px;
+  font-size:13px;
+}
+
+.table-header{
+  color:#9adfff;
+  font-weight:700;
+  border-bottom:1px solid rgba(255,255,255,0.1);
+}
+
+.table-row{
+  color:#cfe8ff;
+  border-bottom:1px solid rgba(255,255,255,0.05);
+}
+
+.vip{
+  color:#00d9ff;
+  font-weight:700;
+}
+
+/* NAV */
+.nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  height:85px;
+  background:#061528;
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  border-top:1px solid rgba(255,255,255,0.1);
+}
+
+.nav a{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-decoration:none;
+  color:#cfe8ff;
+  font-size:15px;
+  font-weight:600;
+  min-width:65px;
+}
+
+.nav a .icon{font-size:28px;}
+.nav a.active{color:#00d9ff;}
+
+</style>
+</head>
+
+<body>
+
+<div class="brand">TASK DASHBOARD</div>
+
+<div class="container">
+
+  <!-- CARD 1 -->
+  <div class="card">
+
+    <div class="stats-grid">
+
+      <div class="stat">
+        <div class="label">Total Plans</div>
+        <div class="value" id="totalPlans">0</div>
+      </div>
+
+      <div class="stat">
+        <div class="label">Days to Maturity</div>
+        <div class="value">21 Days</div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- CARD 2 -->
+  <div class="card">
+
+    <div class="row">
+      <div class="label">In Progress</div>
+      <div class="value" id="inProgress">0</div>
+    </div>
+
+    <div class="row">
+      <div class="label">Matured Investments</div>
+      <div class="value" id="matured">0</div>
+    </div>
+
+  </div>
+
+  <!-- VIP TABLE -->
+  <div class="card">
+
+    <div class="table">
+
+      <div class="table-header">
+        <div>Level</div>
+        <div>Days Earned</div>
+        <div>Total Earnings</div>
+      </div>
+
+      <div id="vipList"></div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- NAV -->
+<div class="nav">
+
+  <a href="dashboard.html"><span class="icon">🏠</span><span>Home</span></a>
+  <a href="task.html" class="active"><span class="icon">📌</span><span>Task</span></a>
+  <a href="team.html"><span class="icon">👥</span><span>Team</span></a>
+  <a href="plans.html"><span class="icon">📊</span><span>Plans</span></a>
+  <a href="profile.html"><span class="icon">👤</span><span>Profile</span></a>
+
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-database-compat.js"></script>
+
+<script>
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDoE3JXF_ggmLS_MNO0xYE0uykuAlj0Mdk",
+  authDomain: "crypto-hub-growth-invest-9492c.firebaseapp.com",
+  databaseURL: "https://crypto-hub-growth-invest-9492c-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "crypto-hub-growth-invest-9492c",
+  storageBucket: "crypto-hub-growth-invest-9492c.firebasestorage.app",
+  messagingSenderId: "946872117732",
+  appId: "1:946872117732:web:c6ba0ca8c1510bf902bff1"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+const userId = localStorage.getItem("userId");
+
+if(!userId){
+  location.href = "login.html";
+}
+
+const MATURITY = 21 * 24 * 60 * 60 * 1000;
+
+const totalPlansEl = document.getElementById("totalPlans");
+const inProgressEl = document.getElementById("inProgress");
+const maturedEl = document.getElementById("matured");
+const vipList = document.getElementById("vipList");
+
+db.ref("users/" + userId + "/plans").on("value", snap => {
+
+  const data = snap.val() || {};
+
+  let total = 0;
+  let progress = 0;
+  let matured = 0;
+
+  vipList.innerHTML = "";
+
+  const now = Date.now();
+
+  for(let i=1;i<=10;i++){
+
+    const p = data[i];
+
+    if(p && p.invested > 0){
+
+      total++;
+
+      const start = p.startTime || 0;
+      const isMatured = now - start >= MATURITY;
+
+      if(isMatured) matured++;
+      else progress++;
+
+      const days = Math.floor((now - start) / (24*60*60*1000));
+      const earnings = p.invested * (0.18 + i * 0.02) * Math.max(1, Math.floor(days/3));
+
+      const row = document.createElement("div");
+      row.className = "table-row";
+
+      row.innerHTML = `
+        <div class="vip">VIP ${i}</div>
+        <div>${days} days</div>
+        <div>KES ${earnings.toFixed(2)}</div>
+      `;
+
+      vipList.appendChild(row);
+    }
+  }
+
+  totalPlansEl.innerText = total;
+  inProgressEl.innerText = progress;
+  maturedEl.innerText = matured;
+
+});
+
+</script>
+
+</body>
+</html>
