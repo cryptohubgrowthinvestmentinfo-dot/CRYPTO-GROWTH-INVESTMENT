@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Transactions | CRYPTO HUB GROWTH INVESTMENT</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  background:linear-gradient(135deg,#050b18,#071a33,#0b2a4a);
+  color:#fff;
+}
+
+/* HEADER */
+.brand{
+  text-align:center;
+  padding:18px;
+  font-size:18px;
+  font-weight:700;
+  color:#00d9ff;
+}
+
+/* FILTERS */
+.filters{
+  display:flex;
+  gap:6px;
+  margin:10px 15px;
+  padding:8px;
+  border-radius:12px;
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.1);
+}
+
+.filters button{
+  flex:1;
+  padding:10px;
+  border:none;
+  background:transparent;
+  color:#cfe8ff;
+  font-weight:700;
+  cursor:pointer;
+  border-radius:10px;
+}
+
+.filters button.active{
+  background:#00d9ff;
+  color:#00131a;
+}
+
+/* CONTAINER */
+.container{
+  padding:15px;
+}
+
+/* TRANSACTION CARD */
+.tx{
+  padding:14px;
+  border-radius:14px;
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.1);
+  margin-bottom:10px;
+}
+
+/* ROW */
+.row{
+  display:flex;
+  justify-content:space-between;
+  margin:4px 0;
+}
+
+.type{
+  font-weight:700;
+  text-transform:uppercase;
+}
+
+.deposit{color:#00ff99;}
+.withdraw{color:#ff4d4d;}
+
+.amount{
+  color:#00d9ff;
+  font-weight:700;
+}
+
+/* STATUS BADGES */
+.status{
+  font-size:11px;
+  padding:4px 8px;
+  border-radius:8px;
+  font-weight:700;
+  text-transform:uppercase;
+}
+
+.pending{
+  background:rgba(255, 193, 7, 0.15);
+  color:#ffc107;
+}
+
+.approved{
+  background:rgba(0, 255, 153, 0.15);
+  color:#00ff99;
+}
+
+.rejected{
+  background:rgba(255, 77, 77, 0.15);
+  color:#ff4d4d;
+}
+
+/* NAV */
+.nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  height:85px;
+  background:#061528;
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  border-top:1px solid rgba(255,255,255,0.1);
+}
+
+.nav a{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-decoration:none;
+  color:#cfe8ff;
+  font-size:15px;
+  font-weight:600;
+}
+
+.nav a .icon{font-size:28px;}
+.nav a.active{color:#00d9ff;}
+
+</style>
+</head>
+
+<body>
+
+<div class="brand">CRYPTO HUB GROWTH INVESTMENT</div>
+
+<!-- FILTERS -->
+<div class="filters">
+  <button onclick="setFilter('all')" class="active" id="allBtn">All</button>
+  <button onclick="setFilter('deposit')" id="depBtn">Deposits</button>
+  <button onclick="setFilter('withdraw')" id="wdBtn">Withdrawals</button>
+</div>
+
+<div class="container" id="list"></div>
+
+<div style="height:90px"></div>
+
+<!-- NAV -->
+<div class="nav">
+  <a href="dashboard.html"><span class="icon">🏠</span><span>Home</span></a>
+  <a href="task.html"><span class="icon">📌</span><span>Task</span></a>
+  <a href="team.html"><span class="icon">👥</span><span>Team</span></a>
+  <a href="plans.html"><span class="icon">📊</span><span>Plans</span></a>
+  <a href="profile.html"><span class="icon">👤</span><span>Profile</span></a>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-database-compat.js"></script>
+
+<script>
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDoE3JXF_ggmLS_MNO0xYE0uykuAlj0Mdk",
+  authDomain: "crypto-hub-growth-invest-9492c.firebaseapp.com",
+  databaseURL: "https://crypto-hub-growth-invest-9492c-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "crypto-hub-growth-invest-9492c",
+  storageBucket: "crypto-hub-growth-invest-9492c.firebasestorage.app",
+  messagingSenderId: "946872117732",
+  appId: "1:946872117732:web:c6ba0ca8c1510bf902bff1"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+const userId = localStorage.getItem("userId");
+
+if(!userId){
+  location.href = "login.html";
+}
+
+let currentFilter = "all";
+let allData = {};
+
+const list = document.getElementById("list");
+
+function setFilter(type){
+
+  currentFilter = type;
+
+  document.querySelectorAll(".filters button")
+    .forEach(b => b.classList.remove("active"));
+
+  if(type === "all") document.getElementById("allBtn").classList.add("active");
+  if(type === "deposit") document.getElementById("depBtn").classList.add("active");
+  if(type === "withdraw") document.getElementById("wdBtn").classList.add("active");
+
+  render();
+}
+
+function render(){
+
+  list.innerHTML = "";
+
+  Object.keys(allData).forEach(k => {
+
+    const t = allData[k];
+
+    if(currentFilter !== "all" && t.type !== currentFilter) return;
+
+    const status = t.status || "pending";
+
+    const box = document.createElement("div");
+    box.className = "tx";
+
+    box.innerHTML = `
+      <div class="row">
+        <span class="type ${t.type}">${t.type.toUpperCase()}</span>
+        <span class="amount">KES ${Number(t.amount || 0).toFixed(2)}</span>
+      </div>
+
+      <div class="row">
+        <span>${t.method || "Manual"}</span>
+        <span class="status ${status}">${status}</span>
+      </div>
+
+      <div class="row">
+        <span>${new Date(t.time || Date.now()).toLocaleString()}</span>
+      </div>
+    `;
+
+    list.appendChild(box);
+  });
+}
+
+/* REALTIME FIREBASE SYNC */
+db.ref("users/" + userId + "/transactions").on("value", snap => {
+  allData = snap.val() || {};
+  render();
+});
+
+</script>
+
+</body>
+</html>
