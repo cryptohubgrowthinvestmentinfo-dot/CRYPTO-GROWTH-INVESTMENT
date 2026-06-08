@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Deposit | CRYPTO HUB GROWTH INVESTMENT</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  background:linear-gradient(135deg,#050b18,#071a33,#0b2a4a);
+  color:#fff;
+}
+
+/* HEADER */
+.brand{
+  text-align:center;
+  padding:18px;
+  font-size:18px;
+  font-weight:700;
+  color:#00d9ff;
+}
+
+/* NOTIFY */
+#notify{
+  position:fixed;
+  top:18px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#00d9ff;
+  color:#00131a;
+  padding:12px 18px;
+  border-radius:10px;
+  font-weight:700;
+  display:none;
+  z-index:9999;
+  box-shadow:0 0 20px rgba(0,217,255,0.3);
+}
+
+/* CARD */
+.card{
+  margin:15px;
+  padding:16px;
+  border-radius:16px;
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.1);
+  box-shadow:0 0 20px rgba(0,217,255,0.08);
+}
+
+/* TEXT */
+.title{
+  font-size:14px;
+  color:#9adfff;
+  font-weight:700;
+  margin-bottom:10px;
+}
+
+p{
+  font-size:13px;
+  margin:6px 0;
+  color:#cfe8ff;
+}
+
+/* COPY BOX */
+.copy-box{
+  background:rgba(0,0,0,0.25);
+  padding:10px;
+  border-radius:10px;
+  margin-top:8px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border:1px solid rgba(255,255,255,0.1);
+}
+
+.copy-box span{
+  font-weight:700;
+  color:#00d9ff;
+}
+
+button.copy{
+  background:#00d9ff;
+  border:none;
+  padding:6px 10px;
+  border-radius:8px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+/* INPUTS */
+input, textarea{
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  border-radius:10px;
+  border:none;
+  outline:none;
+  background:rgba(255,255,255,0.05);
+  color:#fff;
+  border:1px solid rgba(255,255,255,0.1);
+}
+
+input[type="file"]{
+  padding:10px;
+}
+
+textarea{
+  resize:none;
+  height:70px;
+}
+
+/* BUTTON */
+.btn{
+  width:100%;
+  padding:14px;
+  margin-top:12px;
+  border:none;
+  border-radius:12px;
+  font-weight:700;
+  cursor:pointer;
+  background:linear-gradient(135deg,#00d9ff,#00bcd4);
+  color:#00131a;
+}
+
+/* FOOTER */
+.footer{
+  text-align:center;
+  padding:20px;
+  font-size:12px;
+  color:#9adfff;
+  opacity:0.7;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="brand">CRYPTO HUB GROWTH INVESTMENT</div>
+
+<div id="notify"></div>
+
+<!-- PAYMENT -->
+<div class="card">
+
+  <div class="title">Payment Instructions</div>
+
+  <p>Deposit via M-Pesa Paybill ONLY</p>
+
+  <div class="copy-box">
+    <span>Paybill: 247247</span>
+    <button class="copy" onclick="copyText('247247')">Copy</button>
+  </div>
+
+  <div class="copy-box">
+    <span>A/C No: 280683</span>
+    <button class="copy" onclick="copyText('280683')">Copy</button>
+  </div>
+
+  <p>Account Name: Kutenz Enterprise</p>
+
+  <p style="color:#ffcc00">
+    ⚠ Minimum deposit is KES 3,000
+  </p>
+
+</div>
+
+<!-- FORM -->
+<div class="card">
+
+  <div class="title">Confirm Deposit</div>
+
+  <input type="number" id="amount" placeholder="Enter amount (KES)" min="3000"/>
+
+  <textarea id="note" placeholder="Optional note"></textarea>
+
+  <input type="file" id="screenshot" accept="image/*"/>
+
+  <button class="btn" onclick="submitDeposit()">Submit Deposit</button>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  © 2026 CRYPTO HUB GROWTH INVESTMENT • Secure Fintech System
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-database-compat.js"></script>
+
+<script>
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDoE3JXF_ggmLS_MNO0xYE0uykuAlj0Mdk",
+  authDomain: "crypto-hub-growth-invest-9492c.firebaseapp.com",
+  databaseURL: "https://crypto-hub-growth-invest-9492c-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "crypto-hub-growth-invest-9492c",
+  storageBucket: "crypto-hub-growth-invest-9492c.firebasestorage.app",
+  messagingSenderId: "946872117732",
+  appId: "1:946872117732:web:c6ba0ca8c1510bf902bff1"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+const userId = localStorage.getItem("userId");
+
+if(!userId){
+  location.href = "login.html";
+}
+
+/* NOTIFY */
+function notify(msg){
+  const box = document.getElementById("notify");
+  box.innerText = msg;
+  box.style.display = "block";
+
+  clearTimeout(window.__ntf);
+  window.__ntf = setTimeout(()=>{
+    box.style.display = "none";
+  }, 2500);
+}
+
+/* COPY */
+function copyText(text){
+  navigator.clipboard.writeText(text);
+  notify("Copied: " + text);
+}
+
+/* SUBMIT */
+function submitDeposit(){
+
+  const amount = Number(document.getElementById("amount").value);
+  const note = document.getElementById("note").value;
+  const file = document.getElementById("screenshot").files[0];
+
+  if(amount < 3000){
+    notify("Minimum deposit is 3,000 KES");
+    return;
+  }
+
+  let screenshotName = file ? file.name : "no screenshot";
+
+  const ref = db.ref("users/" + userId + "/transactions").push();
+
+  ref.set({
+    type: "deposit",
+    amount: amount,
+    method: "M-Pesa Paybill",
+    note: note,
+    screenshot: screenshotName,
+    time: Date.now(),
+    status: "pending"
+  });
+
+  notify("Deposit submitted successfully");
+
+  setTimeout(()=>{
+    location.href = "transaction.html";
+  }, 1500);
+}
+
+</script>
+
+</body>
+</html>
