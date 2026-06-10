@@ -21,6 +21,7 @@ body{
   color:#fff;
 }
 
+/* HEADER */
 .brand{
   text-align:center;
   padding:18px;
@@ -29,6 +30,7 @@ body{
   color:#00d9ff;
 }
 
+/* NOTIFY */
 #notify{
   position:fixed;
   top:18px;
@@ -44,6 +46,7 @@ body{
   box-shadow:0 0 20px rgba(0,217,255,0.3);
 }
 
+/* CARD */
 .card{
   margin:15px;
   padding:16px;
@@ -53,6 +56,7 @@ body{
   box-shadow:0 0 20px rgba(0,217,255,0.08);
 }
 
+/* TEXT */
 .title{
   font-size:14px;
   color:#9adfff;
@@ -66,6 +70,7 @@ p{
   color:#cfe8ff;
 }
 
+/* COPY BOX */
 .copy-box{
   background:rgba(0,0,0,0.25);
   padding:10px;
@@ -91,6 +96,7 @@ button.copy{
   cursor:pointer;
 }
 
+/* INPUTS */
 input, textarea{
   width:100%;
   padding:12px;
@@ -103,11 +109,16 @@ input, textarea{
   border:1px solid rgba(255,255,255,0.1);
 }
 
+input[type="file"]{
+  padding:10px;
+}
+
 textarea{
   resize:none;
   height:70px;
 }
 
+/* BUTTON */
 .btn{
   width:100%;
   padding:14px;
@@ -120,6 +131,7 @@ textarea{
   color:#00131a;
 }
 
+/* FOOTER */
 .footer{
   text-align:center;
   padding:20px;
@@ -137,7 +149,7 @@ textarea{
 
 <div id="notify"></div>
 
-<!-- PAYMENT INFO -->
+<!-- PAYMENT -->
 <div class="card">
 
   <div class="title">Payment Instructions</div>
@@ -162,7 +174,7 @@ textarea{
 
 </div>
 
-<!-- DEPOSIT FORM -->
+<!-- FORM -->
 <div class="card">
 
   <div class="title">Confirm Deposit</div>
@@ -171,10 +183,13 @@ textarea{
 
   <textarea id="note" placeholder="Optional note"></textarea>
 
+  <input type="file" id="screenshot" accept="image/*"/>
+
   <button class="btn" onclick="submitDeposit()">Submit Deposit</button>
 
 </div>
 
+<!-- FOOTER -->
 <div class="footer">
   © 2026 CRYPTO HUB GROWTH INVESTMENT • Secure Fintech System
 </div>
@@ -184,6 +199,7 @@ textarea{
 
 <script>
 
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyBEvTL_ctjvuElYbqhuNfi-Ns2N59OK69E",
   authDomain: "crypto-groth-hub-investment.firebaseapp.com",
@@ -194,7 +210,6 @@ const firebaseConfig = {
   appId: "1:937161363498:web:b5eb85326ece14385ef353",
   measurementId: "G-YLF32KCLZP"
 };
-
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
@@ -222,31 +237,30 @@ function copyText(text){
   notify("Copied: " + text);
 }
 
-/* SUBMIT DEPOSIT (FIREBASE RULE COMPLIANT) */
+/* SUBMIT */
 function submitDeposit(){
 
   const amount = Number(document.getElementById("amount").value);
   const note = document.getElementById("note").value;
+  const file = document.getElementById("screenshot").files[0];
 
-  if(!amount || amount < 3000){
+  if(amount < 3000){
     notify("Minimum deposit is 3,000 KES");
     return;
   }
 
-  const depositId = db.ref().push().key;
+  let screenshotName = file ? file.name : "no screenshot";
 
-  db.ref("deposits/" + userId + "/" + depositId).set({
+  const ref = db.ref("users/" + userId + "/transactions").push();
+
+  ref.set({
+    type: "deposit",
     amount: amount,
     method: "M-Pesa Paybill",
-    status: "pending",
-    timestamp: Date.now(),
-    note: note || ""
-  });
-
-  db.ref("users/" + userId + "/lastDeposit").set({
-    amount,
-    depositId,
-    timestamp: Date.now()
+    note: note,
+    screenshot: screenshotName,
+    time: Date.now(),
+    status: "pending"
   });
 
   notify("Deposit submitted successfully");
