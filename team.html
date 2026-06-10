@@ -298,87 +298,95 @@ const db = firebase.database();
 const userId = localStorage.getItem("userId");
 
 if(!userId){
-location.href="login.html";
+  location.href = "login.html";
 }
 
+// =========================
+// NOTIFY
+// =========================
 function notify(msg){
-const n=document.getElementById("notify");
-n.innerText=msg;
-n.style.display="block";
-setTimeout(()=>n.style.display="none",2500);
+  const n = document.getElementById("notify");
+  n.innerText = msg;
+  n.style.display = "block";
+  setTimeout(()=>n.style.display="none",2500);
 }
 
+// =========================
+// COPY REF CODE
+// =========================
 function copyCode(){
-navigator.clipboard.writeText(
-document.getElementById("refCode").innerText
-);
-notify("Referral code copied");
+  navigator.clipboard.writeText(
+    document.getElementById("refCode").innerText
+  );
+  notify("Referral code copied");
 }
 
-db.ref("users/"+userId).on("value",snap=>{
+// =========================
+// LOAD USER REF CODE (FIXED)
+// =========================
+let myReferralCode = "";
 
-const user=snap.val() || {};
+db.ref("users/" + userId).on("value", snap => {
 
-const referralCode =
-user.referralCode ||
-user.username ||
-("REF"+userId.slice(-6));
+  const user = snap.val() || {};
 
-document.getElementById("refCode").innerText =
-referralCode;
+  myReferralCode = user.referralCode;
+
+  if(!myReferralCode){
+    // fallback (only if missing)
+    myReferralCode =
+      "REF" + userId.slice(-5).toUpperCase();
+  }
+
+  document.getElementById("refCode").innerText =
+    myReferralCode;
 
 });
 
-db.ref("users").on("value",snap=>{
+// =========================
+// LOAD REFERRALS (FIXED MATCHING)
+// =========================
+db.ref("users").on("value", snap => {
 
-const users=snap.val() || {};
+  const users = snap.val() || {};
 
-let invited=0;
-let deposited=0;
+  let invited = 0;
+  let deposited = 0;
+  let html = "";
 
-let html="";
+  Object.keys(users).forEach(id => {
 
-const myCode=
-document.getElementById("refCode").innerText;
+    const u = users[id];
 
-Object.keys(users).forEach(id=>{
+    if(!u) return;
 
-const u=users[id];
+    if(u.referredBy === myReferralCode){
 
-if(u.referredBy===myCode){
+      invited++;
 
-invited++;
+      const active = u.firstDepositCompleted === true;
 
-const active = u.firstDepositCompleted === true;
+      if(active) deposited++;
 
-if(active) deposited++;
+      html += `
+        <div class="referral-item">
+          <div class="ref-name">
+            ${u.username || "User"}
+          </div>
 
-html += `
-<div class="referral-item">
+          <div class="status ${active ? 'completed' : 'pending'}">
+            ${active ? "Deposited ✓" : "Waiting for first deposit"}
+          </div>
+        </div>
+      `;
+    }
+  });
 
-<div class="ref-name">
-${u.username || "User"}
-</div>
+  document.getElementById("totalReferrals").innerText = invited;
+  document.getElementById("activeReferrals").innerText = deposited;
 
-<div class="status ${active ? 'completed':'pending'}">
-${active ? 'Deposited ✓' : 'Waiting for first deposit'}
-</div>
-
-</div>
-`;
-
-}
-
-});
-
-document.getElementById("totalReferrals").innerText =
-invited;
-
-document.getElementById("activeReferrals").innerText =
-deposited;
-
-document.getElementById("referralList").innerHTML =
-html || '<div class="info">No referrals yet.</div>';
+  document.getElementById("referralList").innerHTML =
+    html || '<div class="info">No referrals yet.</div>';
 
 });
 
