@@ -248,10 +248,10 @@ function toggle(id){
 /* GENERATE UNIQUE REF CODE (4–6 letters) */
 function generateRefCode(){
   const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ";
+  let length = Math.floor(Math.random() * 3) + 4; // 4–6 letters
   let code = "";
-  const length = Math.floor(Math.random() * 3) + 4; // 4–6 letters
 
-  for(let i=0;i<length;i++){
+  for(let i = 0; i < length; i++){
     code += chars[Math.floor(Math.random() * chars.length)];
   }
 
@@ -287,18 +287,32 @@ function register(){
   const referralCode = generateRefCode();
 
   db.ref("users/" + userId).set({
+
     username,
     email,
     password,
 
-    // NEW FIXED REF SYSTEM
+    // REF SYSTEM FIX
     referralCode: referralCode,
-    referredBy: referral || null,
+    referredBy: referral || "",
 
+    // BALANCES (IMPORTANT FOR DASHBOARD)
     mainBalance: 0,
-    totalEarnings: 0,
     totalDeposit: 0,
+    totalEarnings: 0,
+
+    // VIP SYSTEM READY
+    activeVip: 0,
+    plans: {},
+
+    // TEAM TRACKING FIX
+    team: {
+      totalReferrals: 0,
+      activeReferrals: 0
+    },
+
     createdAt: Date.now()
+
   });
 
   localStorage.setItem("userId", userId);
