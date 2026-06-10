@@ -211,13 +211,18 @@ body{
   padding:20px;  
 }  
   
-.modal-content{  
-  background:#0b1f3a;  
-  padding:20px;  
-  border-radius:14px;  
-  max-width:400px;  
-  color:#cfe8ff;  
-}  
+.modal-content{
+  background:rgba(255,255,255,0.08);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  padding:18px;
+  border-radius:18px;
+  max-width:380px;
+  width:100%;
+  color:#eaf6ff;
+  box-shadow:0 10px 35px rgba(0,0,0,0.4);
+  border:1px solid rgba(255,255,255,0.12);
+}
   
 .close{  
   margin-top:15px;  
@@ -229,7 +234,29 @@ body{
   font-weight:700;  
   border-radius:10px;  
 }  
-  
+  /* SCROLL AREA */
+.modal-scroll{
+  max-height:320px;
+  overflow-y:auto;
+  padding-right:8px;
+  margin-top:10px;
+  font-size:13px;
+  line-height:1.5;
+}
+
+/* Scrollbar styling */
+.modal-scroll::-webkit-scrollbar{
+  width:5px;
+}
+
+.modal-scroll::-webkit-scrollbar-thumb{
+  background:#00d9ff;
+  border-radius:10px;
+}
+
+.modal-scroll::-webkit-scrollbar-track{
+  background:rgba(255,255,255,0.05);
+}
 </style>  
 </head>  
   
@@ -357,31 +384,55 @@ Company
 
 </div>
   
-<!-- ANNOUNCEMENT MODAL -->  
-<div class="modal" id="modal">  
-  
-  <div class="modal-content">  
-  
-    <h3>📢 Platform Announcement</h3>  
-  
-    <p>  
-      Welcome to CRYPTO HUB GROWTH INVESTMENT.  
-      <br><br>  
-  
-      • Minimum Deposit: KES 1,000<br>  
-      • Minimum Withdrawal: KES 500<br><br>  
-  
-      • VIP Investment Levels 1–10 are available.<br>  
-      • Higher levels unlock higher ROI and earnings.<br><br>  
-  
-      • All investments are monitored 24/7 for performance and transparency.  
-    </p>  
-  
+<!-- ANNOUNCEMENT MODAL -->    
+<div class="modal" id="modal">    
+
+  <div class="modal-content">    
+
+    <h3>📢 Platform Announcement</h3>    
+
+    <!-- SCROLL AREA -->  
+    <div class="modal-scroll">  
+
+      <p>    
+        Welcome to <b>CRYPTO HUB GROWTH INVESTMENT</b>.<br><br>    
+
+        We provide structured crypto investment plans designed for different capital levels and earning goals.<br><br>    
+
+        <b>🔹 General Rules</b><br>    
+        • Minimum Deposit: KES 1,000<br>    
+        • Minimum Withdrawal: KES 500<br>    
+        • Earnings depend on VIP level<br>    
+        • All transactions are securely recorded<br><br>    
+
+        <b>🔹 VIP Investment Levels (1–10)</b><br>    
+        • VIP 1 – KES 3,000<br>    
+        • VIP 2 – KES 7,000<br>    
+        • VIP 3 – KES 12,000<br>    
+        • VIP 4 – KES 17,000<br>    
+        • VIP 5 – KES 80,000<br>    
+        • VIP 6 – KES 100,000<br>    
+        • VIP 7 – KES 250,000<br>    
+        • VIP 8 – KES 400,000<br>    
+        • VIP 9 – KES 580,000<br>    
+        • VIP 10 – KES 750,000<br><br>    
+
+        <b>🔹 Important Note</b><br>    
+        Higher VIP levels unlock higher earning potential and faster capital growth.  
+        Invest according to your financial capacity.<br><br>    
+
+        System operates with real-time tracking and transparent reporting.    
+      </p>  
+
+    </div>  
+
     <button class="close" onclick="closeModal()">  
       Close  
-    </button>  
-  
-  </div>  
+    </button>    
+
+  </div>    
+
+</div>
   
 </div>  
 <!-- VIP LOCKED MODAL -->  
