@@ -243,6 +243,19 @@ function toggle(id){
   input.type = input.type === "password" ? "text" : "password";
 }
 
+/* GENERATE UNIQUE REF CODE (4–6 letters) */
+function generateRefCode(){
+  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ";
+  let code = "";
+  const length = Math.floor(Math.random() * 3) + 4; // 4–6 letters
+
+  for(let i=0;i<length;i++){
+    code += chars[Math.floor(Math.random() * chars.length)];
+  }
+
+  return code;
+}
+
 /* REGISTER */
 function register(){
 
@@ -269,14 +282,20 @@ function register(){
   }
 
   const userId = "user_" + Date.now();
+  const referralCode = generateRefCode();
 
   db.ref("users/" + userId).set({
     username,
     email,
     password,
-    referral,
+
+    // NEW FIXED REF SYSTEM
+    referralCode: referralCode,
+    referredBy: referral || null,
+
     mainBalance: 0,
     totalEarnings: 0,
+    totalDeposit: 0,
     createdAt: Date.now()
   });
 
