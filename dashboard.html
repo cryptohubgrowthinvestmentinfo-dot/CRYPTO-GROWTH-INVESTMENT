@@ -263,7 +263,7 @@ CRYPTO HUB GROWTH INVESTMENT
     <h3>Total Earnings</h3>  
     <h2>KES 0.00</h2>  
   </div>  
-</div>  
+</div>
   
 <!-- ACTIONS -->  
 <div class="actions">  
@@ -300,33 +300,62 @@ Company
   
 <div style="height:80px"></div>  
   
-<!-- BOTTOM NAV -->  
-<div class="nav">  
-  
-  <a href="dashboard.html" class="active">  
-    <span class="icon">🏠</span>  
-    <span>Home</span>  
+<!-- BOTTOM NAV -->    
+<div class="nav">    
+    
+  <a href="dashboard.html" class="active">    
+    <span class="icon">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+        <path d="M3 10.5L12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1v-10.5z"
+        stroke="currentColor" stroke-width="2"/>
+      </svg>
+    </span>    
+    <span>Home</span>    
+  </a>    
+    
+  <a href="task.html">    
+    <span class="icon">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+        <path d="M9 11l3 3L22 4" stroke="currentColor" stroke-width="2"/>
+        <path d="M2 12h6M2 6h10M2 18h8" stroke="currentColor" stroke-width="2"/>
+      </svg>
+    </span>    
+    <span>Task</span>    
+  </a>    
+    
+  <a href="team.html">    
+    <span class="icon">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2"/>
+        <circle cx="9" cy="7" r="4" stroke="currentColor" stroke-width="2"/>
+        <path d="M22 21v-2a4 4 0 0 0-3-3.87" stroke="currentColor" stroke-width="2"/>
+        <circle cx="17" cy="7" r="3" stroke="currentColor" stroke-width="2"/>
+      </svg>
+    </span>    
+    <span>Team</span>    
+  </a>    
+    
+  <a href="plans.html">    
+    <span class="icon">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+        <path d="M3 3h18v18H3z" stroke="currentColor" stroke-width="2"/>
+        <path d="M3 9h18M9 21V9" stroke="currentColor" stroke-width="2"/>
+      </svg>
+    </span>    
+    <span>Plans</span>    
+  </a>    
+    
+  <a href="profile.html">    
+    <span class="icon">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/>
+        <path d="M4 21a8 8 0 0 1 16 0" stroke="currentColor" stroke-width="2"/>
+      </svg>
+    </span>    
+    <span>Profile</span>    
   </a>  
-  
-  <a href="task.html">  
-    <span class="icon">📌</span>  
-    <span>Task</span>  
-  </a>  
-  
-  <a href="team.html">  
-    <span class="icon">👥</span>  
-    <span>Team</span>  
-  </a>  
-  
-  <a href="plans.html">  
-    <span class="icon">📊</span>  
-    <span>Plans</span>  
-  </a>  
-  
-  <a href="profile.html">  
-    <span class="icon">👤</span>  
-    <span>Profile</span>  
-  </a>  
+
+</div>
   
 <!-- ANNOUNCEMENT MODAL -->  
 <div class="modal" id="modal">  
@@ -376,119 +405,176 @@ Company
   
 </div>  
   
-<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>  
-<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-database-compat.js"></script>  
-  
-<script>  
-// =====================  
-// FIREBASE CONFIG  
-// =====================  
-const firebaseConfig = {  
-  apiKey: "AIzaSyDoE3JXF_ggmLS_MNO0xYE0uykuAlj0Mdk",  
-  authDomain: "crypto-hub-growth-invest-9492c.firebaseapp.com",  
-  databaseURL: "https://crypto-hub-growth-invest-9492c-default-rtdb.europe-west1.firebasedatabase.app",  
-  projectId: "crypto-hub-growth-invest-9492c",  
-  storageBucket: "crypto-hub-growth-invest-9492c.firebasestorage.app",  
-  messagingSenderId: "946872117732",  
-  appId: "1:946872117732:web:c6ba0ca8c1510bf902bff1",  
-  measurementId: "G-CLET27VD7J"  
-};  
-  
-// Init Firebase  
-firebase.initializeApp(firebaseConfig);  
-const db = firebase.database();  
-  
-// =====================  
-// MODALS (ANNOUNCEMENT)  
-// =====================  
-function openModal() {  
-  document.getElementById("modal").style.display = "flex";  
-}  
-  
-function closeModal() {  
-  document.getElementById("modal").style.display = "none";  
-}  
-  
-// Close when clicking outside modal  
-window.addEventListener("click", function (event) {  
-  const modal = document.getElementById("modal");  
-  const vipModal = document.getElementById("vipModal");  
-  
-  if (event.target === modal) {  
-    modal.style.display = "none";  
-  }  
-  
-  if (event.target === vipModal) {  
-    vipModal.style.display = "none";  
-  }  
-});  
-  
-// =====================  
-// VIP SYSTEM (FIREBASE SYNC)  
-// =====================  
-  
-const planList = document.getElementById("planList");  
-  
-// Get device/user ID (simple local key)  
-const userId = localStorage.getItem("userId") || generateUserId();  
-localStorage.setItem("userId", userId);  
-  
-function generateUserId() {  
-  return "user_" + Math.random().toString(36).substr(2, 9);  
-}  
-  
-// Unlock VIP  
-function unlockVip(level) {  
-  const ref = db.ref("users/" + userId + "/vipLevel");  
-  
-  ref.set(level).then(() => {  
-    alert("VIP Level " + level + " unlocked successfully!");  
-    renderVipLevels();  
-  });  
-}  
-  
-// Render VIP Levels  
-function renderVipLevels(unlockedLevel = 0) {  
-  planList.innerHTML = "";  
-  
-  for (let i = 1; i <= 10; i++) {  
-    const unlocked = i <= unlockedLevel;  
-  
-    const div = document.createElement("div");  
-    div.className = unlocked ? "plan" : "plan locked";  
-    div.style.cursor = "pointer";  
-  
-    div.innerHTML = `  
-      <div class="plan-left">  
-        <h4>VIP Level ${i}</h4>  
-        <small>${unlocked ? "VIP Activated" : "Unlock required"}</small>  
-      </div>  
-      <div class="lock">  
-        ${unlocked ? "✅ Active" : "🔒 Locked"}  
-      </div>  
-    `;  
-  
-    div.onclick = function () {  
-      if (unlocked) {  
-        window.location.href = "vip" + i + ".html";  
-      } else {  
-        document.getElementById("vipText").innerHTML =  
-          "VIP Level " + i + " is locked.<br>Unlock it first.";  
-  
-        document.getElementById("vipModal").style.display = "flex";  
-      }  
-    };  
-  
-    planList.appendChild(div);  
-  }  
-}  
-  
-// LIVE SYNC FROM FIREBASE  
-db.ref("users/" + userId + "/vipLevel").on("value", (snapshot) => {  
-  const level = snapshot.val() || 0;  
-  renderVipLevels(level);  
-});  
-</script>  
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-database-compat.js"></script>
+
+<script>
+
+// =========================
+// FIREBASE INIT
+// =========================
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDoE3JXF_ggmLS_MNO0xYE0uykuAlj0Mdk",
+  authDomain: "crypto-hub-growth-invest-9492c.firebaseapp.com",
+  databaseURL: "https://crypto-hub-growth-invest-9492c-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "crypto-hub-growth-invest-9492c",
+  storageBucket: "crypto-hub-growth-invest-9492c.firebasestorage.app",
+  messagingSenderId: "946872117732",
+  appId: "1:946872117732:web:c6ba0ca8c1510bf902bff1"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+// =========================
+// USER ID (FIXED CONSISTENCY)
+// =========================
+
+let userId = localStorage.getItem("userId");
+
+if (!userId || userId === "null") {
+  userId = "user_" + Math.random().toString(36).substring(2, 10);
+  localStorage.setItem("userId", userId);
+}
+
+// =========================
+// PLAN PRICES
+// =========================
+
+const PLAN_PRICES = {
+  1: 3000,
+  2: 7000,
+  3: 12000,
+  4: 17000,
+  5: 80000,
+  6: 100000,
+  7: 250000,
+  8: 400000,
+  9: 580000,
+  10: 750000
+};
+
+// =========================
+// MODALS
+// =========================
+
+function openModal(){
+  document.getElementById("modal").style.display = "flex";
+}
+
+function closeModal(){
+  document.getElementById("modal").style.display = "none";
+}
+
+window.onclick = function(event){
+  if(event.target.id === "modal") closeModal();
+  if(event.target.id === "vipModal")
+    document.getElementById("vipModal").style.display = "none";
+};
+
+// =========================
+// CREATE USER IF NOT EXISTS
+// =========================
+
+db.ref("users/" + userId).once("value").then(snap => {
+  if (!snap.exists()) {
+    db.ref("users/" + userId).set({
+      mainBalance: 0,
+      totalDeposit: 0,
+      totalEarnings: 0,
+      plans: {},
+      vipLevel: 0
+    });
+  }
+});
+
+// =========================
+// FIXED BALANCE UPDATE (WORKS ALWAYS)
+// =========================
+
+const cardEls = document.querySelectorAll(".card h2");
+
+db.ref("users/" + userId).on("value", snap => {
+
+  const data = snap.val() || {};
+
+  cardEls[0].innerText =
+    "KES " + Number(data.mainBalance || 0).toLocaleString();
+
+  cardEls[1].innerText =
+    "KES " + Number(data.totalDeposit || 0).toLocaleString();
+
+  cardEls[2].innerText =
+    "KES " + Number(data.totalEarnings || 0).toLocaleString();
+});
+
+// =========================
+// VIP SYSTEM (REALTIME FIXED)
+// =========================
+
+const planList = document.getElementById("planList");
+
+db.ref("users/" + userId + "/plans").on("value", snap => {
+  renderVipLevels(snap.val() || {});
+});
+
+function renderVipLevels(plans){
+
+  planList.innerHTML = "";
+
+  for(let i=1;i<=10;i++){
+
+    const active = plans[i]?.invested > 0;
+
+    const div = document.createElement("div");
+
+    div.className = active ? "plan" : "plan locked";
+
+    div.innerHTML = `
+      <div class="plan-left">
+        <h4>VIP LEVEL ${i}</h4>
+        <small>Investment: KES ${PLAN_PRICES[i].toLocaleString()}</small>
+      </div>
+
+      <div class="lock">
+        ${active ? "✅ ACTIVE" : "🔒 LOCKED"}
+      </div>
+    `;
+
+    div.onclick = () => {
+
+      if(active){
+        window.location.href = "plans.html";
+      } else {
+        document.getElementById("vipText").innerHTML = `
+          VIP LEVEL ${i}<br><br>
+          Required Investment: KES ${PLAN_PRICES[i].toLocaleString()}
+        `;
+        document.getElementById("vipModal").style.display = "flex";
+      }
+
+    };
+
+    planList.appendChild(div);
+  }
+}
+
+// =========================
+// REALTIME PLAN SYNC
+// =========================
+
+db.ref("users/" + userId + "/plans")
+.on("value", snapshot => {
+
+  const plans =
+  snapshot.val() || {};
+
+  renderVipLevels(plans);
+
+});
+
+</script>
   
 </body>  
 </html>
